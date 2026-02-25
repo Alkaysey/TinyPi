@@ -17,48 +17,30 @@ class Lexer:
         self.arr.append(Token(type, value))
 
 #patternFind is wip
-def patternFind(string):
-    patterns = ["\b(?:int|float|if|for)\b",]
-    print(string + ' is: ' + "\n")
-    nothing = 0 #if string meets no criteria
-    if re.match("^[0-9]*$", string):
-        print('a. An integer \n')
-
-
-    nothing = nothing + 1
-    if re.match("^\b(?:int|float|if|for)\b", string):
-    print('b. A float consists of 1 or more digits before and after decimal
-    point \n')
-    nothing = nothing + 1
-    if re.match("^[0-9]*\\.[0-9]{2}$", string):
-    print('c. A float with exactly 2 digits after the decimal point \n')
-    nothing = nothing + 1
-    if re.match("^[0-9]*\\.[0-9]*[A-z]", string):
-    nothing = nothing + 1
-    print('d. A float end with letter f (4.321f) \n')
-    if re.match("[A-Z]{1,}[a-z]{1,}\\d{1,}$", string):
-    nothing = nothing + 1
-    print('e. Capital letters, followed by small case letters, followed by
-    digits \n')
-    if re.match("^[0-9]{3}[A-z]{2,}", string):
-    nothing = nothing + 1
-    print('f. Exactly 3 digits, followed by at least 2 letters \n')
-    if nothing == 0:
-    print('Not recognized in any pattern \n')
-
-
 def CutOneLineTokens(string):
-    tokenList = Lexer
+    patterns = ["^(?:int|float|if|for)","^[A-Za-z]+[A-Za-z0-9]*","^[0-9]{1,}\\.[0-9]{1,}","^[0-9]*","^[\"]{1}.*[\"]{1}","^[()\":]","^[=>+*]"]
+    tokenList = Lexer()
 
-    while(string != ""):
-
-        string = string[1:]
-    ranges = re.search(pattern, string)
-    removed = string[ranges.start():ranges.end()]
-    newstring = re.sub(pattern, "", removed)
+    while string != "":
+        for pattern1 in patterns:
+            #print(pattern1)
+            print(string)
+            #if re.match("^\s*", string):
+                #string = re.sub(pattern, "", string)
+                #print(string+"2")
+            if re.match(pattern1, string):
+                print(pattern1)
+                ranges = re.search(pattern1, string)
+                value1 = string[ranges.start():ranges.end()]
+                print(value1)
+                tokenList.addToken(pattern1, value1)
+                newString = re.sub(pattern1, "", string)
+                string = newString
+                print(string+"3")
+                break
     return tokenList
 
 
-def main():
-    print("hey-there")
-CutOneLineTokens ("int A1=5")
+if __name__ == '__main__':
+    #print(CutOneLineTokens("int A1=5"))
+    CutOneLineTokens("int A2=5")
