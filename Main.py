@@ -7,10 +7,10 @@ from enum import Enum
 class TokenType(Enum):
     KEYWORD = str("^(?:int|float|if|for)")
     IDENTIFIER = str("^[A-Za-z]+[A-Za-z0-9]*")
-    LITERAL = str("^([0-9]{1,}\\.[0-9]{1,}|[0-9]+|[\"]{1}.*[\"]{1})")
-    #FLOAT = str("^[0-9]{1,}\\.[0-9]{1,}")
-    #INTEGER = str("^[0-9]+")
-    #STRING = str("^[\"]{1}.*[\"]{1}")
+    #LITERAL = str("^([0-9]{1,}\\.[0-9]{1,}|[0-9]+|[\"]{1}.*[\"]{1})")
+    FLOAT = str("^[0-9]{1,}\\.[0-9]{1,}")
+    INTEGER = str("^[0-9]+")
+    STRING = str("^[\"]{1}.*[\"]{1}")
     SEPERATOR = str("^[()\":]")
     OPERATOR = str("^[=>+*]")
 
