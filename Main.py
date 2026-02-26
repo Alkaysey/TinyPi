@@ -28,6 +28,7 @@ class Lexer:
     def addToken(self, type, value):
         self.arr.append(Token(type, value))
     def printLine(self):
+        #print(self.arr)
         for token in self.arr:
             token.displayToken()
 
@@ -35,8 +36,9 @@ def CutOneLineTokens(string):
     tokenList = Lexer()
     while string != "":
         for pattern1 in TokenType:
-            if string[0] == " ":
-                string = re.sub("^\\s*", "", string)
+            if string[0] == " " or string[0] == "\t":
+                string = re.sub("^(\\s*|\\t)", "",string)
+
             if re.match(pattern1.value, string):
                 ranges = re.search(pattern1.value, string)
                 value1 = string[ranges.start():ranges.end()]
@@ -47,5 +49,8 @@ def CutOneLineTokens(string):
     return tokenList
 
 if __name__ == '__main__':
-    line = CutOneLineTokens("int A2 int float A2     =    \"string\"")
-    line.printLine()
+    testArr = ["int    A1=5","float BBB2     =1034.2","float     cresult     =     A1     +BBB2     *      BBB2","if(cresult     >10):","	print(\"TinyPie    \"    )"]
+    for currString in testArr:
+        print(currString)
+        line = CutOneLineTokens(currString)
+        line.printLine()
