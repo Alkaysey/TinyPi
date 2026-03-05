@@ -20,7 +20,7 @@ class Token:
         self.type = TokenType(type)
         self.value = value
     def displayToken(self):
-        print("<" + self.type.name + "," + self.value + ">")
+        print("<" + self.type.name + "," + self.value + ">", end = "")
 
 class Lexer:
     def __init__(self):
@@ -31,6 +31,8 @@ class Lexer:
         #print(self.arr)
         for token in self.arr:
             token.displayToken()
+            print(",", end = "")
+        print("")
 
 def CutOneLineTokens(string):
     tokenList = Lexer()
@@ -51,6 +53,6 @@ def CutOneLineTokens(string):
 if __name__ == '__main__':
     testArr = ["int    A1=5","float BBB2     =1034.2","float     cresult     =     A1     +BBB2     *      BBB2","if(cresult     >10):","	print(\"TinyPie    \"    )"]
     for currString in testArr:
-        print(currString)
+        print("Testing: " + currString)
         line = CutOneLineTokens(currString)
         line.printLine()
