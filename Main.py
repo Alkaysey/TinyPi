@@ -3,6 +3,7 @@
 
 import re
 from enum import Enum
+#import TinyPiGUI
 
 class TokenType(Enum):
     KEYWORD = str("^(?:int|float|if|for)")
@@ -13,6 +14,7 @@ class TokenType(Enum):
     STRING = str("^[\"]{1}.*[\"]{1}")
     SEPERATOR = str("^[()\":]")
     OPERATOR = str("^[=>+*]")
+    #NULL = str("NULL")
 
 
 class Token:
@@ -21,6 +23,8 @@ class Token:
         self.value = value
     def displayToken(self):
         print("<" + self.type.name + "," + self.value + ">", end = "")
+    def returnToken(self):
+        return "<" + self.type.name + "," + self.value + ">"
 
 class Lexer:
     def __init__(self):
@@ -33,6 +37,12 @@ class Lexer:
             token.displayToken()
             print(",", end = "")
         print("")
+    def returnLine(self):
+        # print(self.arr)
+        line = ""
+        for token in self.arr:
+            line += token.returnToken() + "\n"
+        return line
 
 def CutOneLineTokens(string):
     tokenList = Lexer()
@@ -48,11 +58,12 @@ def CutOneLineTokens(string):
                 newString = re.sub(pattern1.value, "", string)
                 string = newString
                 break
-    return tokenList
+    return tokenList.returnLine()
 
-if __name__ == '__main__':
-    testArr = ["int    A1=5","float BBB2     =1034.2","float     cresult     =     A1     +BBB2     *      BBB2","if(cresult     >10):","	print(\"TinyPie    \"    )"]
-    for currString in testArr:
-        print("Testing: " + currString)
-        line = CutOneLineTokens(currString)
-        line.printLine() #hi
+#if __name__ == '__main__':
+#TinyPiGUI().TinyPiGUI()
+    #testArr = ["int    A1=5","float BBB2     =1034.2","float     cresult     =     A1     +BBB2     *      BBB2","if(cresult     >10):","	print(\"TinyPie    \"    )"]
+    #for currString in testArr:
+    #    print("Testing: " + currString)
+    #    line = CutOneLineTokens(currString)
+    #    line.printLine() #hi
